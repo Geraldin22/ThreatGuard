@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ThreatGuard - AI-Driven Threat Detection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#0d1440" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+  </head>
+  <body>
+    <svg class="sprite" aria-hidden="true" focusable="false">
+      <symbol id="i-shield" viewBox="0 0 24 24">
+        <path d="M12 3l8 3v6c0 4.5-3.2 7.7-8 9-4.8-1.3-8-4.5-8-9V6z" />
+      </symbol>
+      <symbol id="i-shield-check" viewBox="0 0 24 24">
+        <path d="M12 3l8 3v6c0 4.5-3.2 7.7-8 9-4.8-1.3-8-4.5-8-9V6z" />
+        <path d="M8.5 12l2.5 2.5 4.5-5" />
+      </symbol>
+      <symbol id="i-check-circle" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M8 12.5l2.7 2.7L16 9.5" />
+      </symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24">
+        <rect x="5" y="11" width="14" height="9" rx="2" />
+        <path d="M8 11V8a4 4 0 018 0v3" />
+      </symbol>
+      <symbol id="i-alert" viewBox="0 0 24 24">
+        <path d="M12 4l9 16H3z" />
+        <path d="M12 10v4M12 17.5v.01" />
+      </symbol>
+      <symbol id="i-key" viewBox="0 0 24 24">
+        <circle cx="8" cy="15" r="4" />
+        <path d="M11 12l9-9M16 7l3 3M14 9l2 2" />
+      </symbol>
+      <symbol id="i-ban" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M5.7 5.7l12.6 12.6" />
+      </symbol>
+      <symbol id="i-undo" viewBox="0 0 24 24">
+        <path d="M9 14L4 9l5-5" />
+        <path d="M4 9h10a6 6 0 010 12h-3" />
+      </symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24">
+        <path d="M5 12h14M13 6l6 6-6 6" />
+      </symbol>
+      <symbol id="i-user" viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 21c1-4 4-6 8-6s7 2 8 6" />
+      </symbol>
+
+      <symbol id="cube" viewBox="0 0 44 55">
+        <polygon points="22,0 44,11 22,22 0,11" fill="#8db8ff" />
+        <polygon points="0,11 22,22 22,55 0,44" fill="#2f55c9" />
+        <polygon points="22,22 44,11 44,44 22,55" fill="#1d378f" />
+      </symbol>
+      <symbol id="tile" viewBox="0 0 44 30">
+        <polygon points="22,0 44,11 22,22 0,11" fill="#8db8ff" />
+        <polygon points="0,11 22,22 22,30 0,19" fill="#2f55c9" />
+        <polygon points="22,22 44,11 44,19 22,30" fill="#1d378f" />
+      </symbol>
+      <symbol id="cylinder" viewBox="0 0 44 60">
+        <path d="M0 14v32c0 6 10 11 22 11s22-5 22-11V14z" fill="#2f55c9" />
+        <path d="M22 14v43c12 0 22-5 22-11V14z" fill="#1d378f" />
+        <ellipse cx="22" cy="14" rx="22" ry="11" fill="#8db8ff" />
+      </symbol>
+
+      <symbol id="avatar-a" viewBox="0 0 120 120">
+        <path d="M14 120c0-24 18-36 46-36s46 12 46 36z" fill="#2b2f45" />
+        <path d="M46 84l14 20 14-20z" fill="#fff" />
+        <path d="M57 90h6l3 22-6 5-6-5z" fill="#1d378f" />
+        <rect x="52" y="68" width="16" height="18" rx="6" fill="#f2c9a5" />
+        <circle cx="60" cy="48" r="26" fill="#f6d3b3" />
+        <path
+          d="M34 46c-2-22 14-30 28-28 14 0 26 10 24 28-4-10-12-14-26-14S38 36 34 46z"
+          fill="#2a2018"
+        />
+        <g fill="none" stroke="#1b1f33" stroke-width="3">
+          <circle cx="49" cy="50" r="8" />
+          <circle cx="71" cy="50" r="8" />
+          <path d="M57 50h6" />
+        </g>
+        <circle cx="49" cy="50" r="2.5" fill="#1b1f33" />
+        <circle cx="71" cy="50" r="2.5" fill="#1b1f33" />
+        <path
+          d="M52 63q8 6 16 0"
+          fill="none"
+          stroke="#a5604a"
+          stroke-width="3"
+          stroke-linecap="round"
+        />
+      </symbol>
+      <symbol id="avatar-b" viewBox="0 0 120 120">
+        <path d="M14 120c0-24 18-36 46-36s46 12 46 36z" fill="#c9cfe0" />
+        <path d="M46 84l14 20 14-20z" fill="#fff" />
+        <path d="M57 90h6l3 22-6 5-6-5z" fill="#1d378f" />
+        <rect x="52" y="68" width="16" height="18" rx="6" fill="#f0bd98" />
+        <circle cx="60" cy="48" r="26" fill="#f4c8a2" />
+        <path
+          d="M33 48c-4-24 14-34 30-32 16 2 25 14 22 32-3-12-10-18-26-18-10 0-20 6-26 18z"
+          fill="#d9772f"
+        />
+        <circle cx="50" cy="50" r="3" fill="#1b1f33" />
+        <circle cx="70" cy="50" r="3" fill="#1b1f33" />
+        <path
+          d="M52 63q8 6 16 0"
+          fill="none"
+          stroke="#a5604a"
+          stroke-width="3"
+          stroke-linecap="round"
+        />
+      </symbol>
+      <symbol id="avatar-c" viewBox="0 0 120 120">
+        <path d="M14 120c0-24 18-36 46-36s46 12 46 36z" fill="#3b6fd8" />
+        <rect x="52" y="68" width="16" height="18" rx="6" fill="#f6d3b3" />
+        <circle cx="60" cy="48" r="26" fill="#f8dabc" />
+        <path
+          d="M32 54c-6-30 14-38 30-36 18 2 28 16 24 38-2-14-8-24-26-24S36 40 32 54z"
+          fill="#5a3a22"
+        />
+        <g fill="none" stroke="#1b1f33" stroke-width="3">
+          <circle cx="49" cy="50" r="8" />
+          <circle cx="71" cy="50" r="8" />
+          <path d="M57 50h6" />
+        </g>
+        <circle cx="49" cy="50" r="2.5" fill="#1b1f33" />
+        <circle cx="71" cy="50" r="2.5" fill="#1b1f33" />
+        <path
+          d="M52 63q8 6 16 0"
+          fill="none"
+          stroke="#a5604a"
+          stroke-width="3"
+          stroke-linecap="round"
+        />
+      </symbol>
+    </svg>
+
+    <header class="navbar">
+      <div class="nav-container">
+        <a href="#" class="logo" data-view="home">
+          <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true">
+            <path
+              d="M16 3l11 4v8c0 7-4.5 11.5-11 14C9.5 26.5 5 22 5 15V7z"
+              fill="#e48a2c"
+            />
+            <path
+              d="M11 16l4 4 7-8"
+              fill="none"
+              stroke="#fff"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>Threat<b>Guard</b></span>
+        </a>
+        <nav class="nav-links" aria-label="Main">
+          <a href="#" class="active" data-view="home">Home</a>
+          <a href="#" data-view="inbox">Inbox</a>
+          <a href="#" data-view="dashboard">Dashboard</a>
+          <a href="#" data-view="scan">Scan</a>
+        </nav>
+        <div class="nav-actions">
+          <button type="button" class="btn-ghost nav-install" data-install>
+            Download app
+          </button>
+          <button type="button" class="btn-white" data-view="inbox">
+            Get started
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-container">
+      <div id="homeView">
+        <section class="hero">
+          <div class="hero-text">
+            <h1>Receive.<br />Detect.<br />Stay safe.</h1>
+            <p>
+              ThreatGuard scans every incoming message the moment it arrives and
+              flags the phrases and links attackers use to steal logins and
+              money.
+            </p>
+            <div class="hero-buttons">
+              <button type="button" class="btn-white" data-view="inbox">
+                Open inbox
+              </button>
+              <button type="button" class="btn-ghost" data-view="scan">
+                Scan a message
+              </button>
+              <button type="button" class="btn-ghost" data-install>
+                Download app
+              </button>
+            </div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <svg viewBox="0 0 460 380" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="gTower" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#2c4fc0" />
+                  <stop offset="0.5" stop-color="#6c97ff" />
+                  <stop offset="1" stop-color="#1b2f86" />
+                </linearGradient>
+                <linearGradient id="gDisc" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#5a7cf0" />
+                  <stop offset="1" stop-color="#16246b" />
+                </linearGradient>
+                <linearGradient id="gShield" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#9ddcff" />
+                  <stop offset="1" stop-color="#2b7fe6" />
+                </linearGradient>
+                <radialGradient id="gGlow" cx="0.5" cy="0.5" r="0.5">
+                  <stop offset="0" stop-color="#7fb2ff" stop-opacity="0.55" />
+                  <stop offset="1" stop-color="#7fb2ff" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+              <ellipse cx="230" cy="170" rx="210" ry="170" fill="url(#gGlow)" />
+              <ellipse
+                cx="230"
+                cy="318"
+                rx="200"
+                ry="46"
+                fill="#0b1448"
+                opacity="0.55"
+              />
+              <ellipse cx="230" cy="292" rx="190" ry="50" fill="url(#gDisc)" />
+              <ellipse
+                cx="230"
+                cy="284"
+                rx="190"
+                ry="50"
+                fill="none"
+                stroke="#8dbcff"
+                stroke-width="3"
+                opacity="0.85"
+              />
+              <ellipse
+                cx="230"
+                cy="278"
+                rx="150"
+                ry="36"
+                fill="#0e1a5c"
+                opacity="0.7"
+              />
+
+              <rect x="44" y="236" width="22" height="52" rx="4" fill="url(#gTower)" />
+              <rect x="68" y="196" width="36" height="92" rx="5" fill="url(#gTower)" />
+              <rect x="108" y="226" width="26" height="62" rx="5" fill="url(#gTower)" />
+              <rect x="336" y="186" width="38" height="102" rx="5" fill="url(#gTower)" />
+              <rect x="378" y="224" width="28" height="64" rx="5" fill="url(#gTower)" />
+              <rect x="410" y="244" width="22" height="44" rx="4" fill="url(#gTower)" />
+              <g stroke="#fff" stroke-opacity="0.22" stroke-width="2" stroke-dasharray="5 9">
+                <path d="M78 204v76M94 204v76M117 234v48M347 194v88M363 194v88M387 232v50" />
+              </g>
+
+              <path
+                d="M230 36L332 76V150C332 216 292 256 230 284C168 256 128 216 128 150V76Z"
+                fill="url(#gShield)"
+              />
+              <path
+                d="M230 36L332 76V150C332 216 292 256 230 284"
+                fill="none"
+                stroke="#fff"
+                stroke-opacity="0.35"
+                stroke-width="3"
+              />
+              <polyline
+                points="184,152 220,190 282,114"
+                fill="none"
+                stroke="#fff"
+                stroke-width="20"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+
+              <g fill="#fff" opacity="0.3">
+                <ellipse cx="392" cy="62" rx="34" ry="14" />
+                <ellipse cx="410" cy="52" rx="22" ry="14" />
+                <ellipse cx="66" cy="104" rx="30" ry="12" />
+                <ellipse cx="82" cy="95" rx="18" ry="12" />
+              </g>
+              <circle cx="62" cy="40" r="6" fill="#e48a2c" />
+              <circle cx="430" cy="150" r="5" fill="#e9a23b" />
+            </svg>
+          </div>
+        </section>
+
+        <section class="info">
+          <div class="section-head">
+            <span class="eyebrow">Security Tips</span>
+            <h2>Protect Against Threats</h2>
+          </div>
+          <div class="tip-cards">
+            <article class="glass tip-card">
+              <div class="tip-top">
+                <span class="tip-tag">Habit</span>
+                <span class="tip-badge"><svg class="ico"><use href="#i-shield" /></svg></span>
+              </div>
+              <svg class="tip-art" viewBox="0 0 160 120" aria-hidden="true">
+                <use href="#cube" x="58" y="28" width="44" height="55" />
+                <use href="#cube" x="36" y="39" width="44" height="55" />
+                <use href="#cube" x="80" y="39" width="44" height="55" />
+                <use href="#cube" x="36" y="6" width="44" height="55" />
+                <use href="#cube" x="58" y="50" width="44" height="55" />
+              </svg>
+              <div class="tip-body">
+                <h4>Think Before You Click</h4>
+                <p>Check links and messages carefully before opening or responding.</p>
+                <p class="card-more" id="more-think" hidden>
+                  Hover over a link to preview where it really goes. If the
+                  address looks odd or shortened, do not open it.
+                </p>
+              </div>
+              <button type="button" class="btn-ghost card-toggle" aria-expanded="false" aria-controls="more-think">
+                Learn more
+              </button>
+            </article>
+            <article class="glass tip-card">
+              <div class="tip-top">
+                <span class="tip-tag">Identity</span>
+                <span class="tip-badge"><svg class="ico"><use href="#i-check-circle" /></svg></span>
+              </div>
+              <svg class="tip-art" viewBox="0 0 160 120" aria-hidden="true">
+                <use href="#cylinder" x="55" y="16" width="50" height="68" />
+                <use href="#cylinder" x="14" y="46" width="38" height="52" />
+                <use href="#cylinder" x="108" y="52" width="38" height="52" />
+              </svg>
+              <div class="tip-body">
+                <h4>Verify the Sender</h4>
+                <p>Make sure the message is from a trusted person or organization.</p>
+                <p class="card-more" id="more-verify" hidden>
+                  Contact the company through its official app or website, not
+                  through the number or link in the message.
+                </p>
+              </div>
+              <button type="button" class="btn-ghost card-toggle" aria-expanded="false" aria-controls="more-verify">
+                Learn more
+              </button>
+            </article>
+            <article class="glass tip-card">
+              <div class="tip-top">
+                <span class="tip-tag">Privacy</span>
+                <span class="tip-badge"><svg class="ico"><use href="#i-lock" /></svg></span>
+              </div>
+              <svg class="tip-art" viewBox="0 0 160 120" aria-hidden="true">
+                <use href="#tile" x="63" y="30" width="34" height="23.2" />
+                <use href="#tile" x="80" y="38.5" width="34" height="23.2" />
+                <use href="#tile" x="46" y="38.5" width="34" height="23.2" />
+                <use href="#tile" x="97" y="47" width="34" height="23.2" />
+                <use href="#tile" x="63" y="47" width="34" height="23.2" />
+                <use href="#tile" x="29" y="47" width="34" height="23.2" />
+                <use href="#tile" x="80" y="55.5" width="34" height="23.2" />
+                <use href="#tile" x="46" y="55.5" width="34" height="23.2" />
+                <use href="#tile" x="63" y="64" width="34" height="23.2" />
+                <use href="#tile" x="63" y="33" width="34" height="23.2" />
+              </svg>
+              <div class="tip-body">
+                <h4>Protect Personal Information</h4>
+                <p>Never share passwords, OTPs, or sensitive details through suspicious messages.</p>
+                <p class="card-more" id="more-protect" hidden>
+                  Real banks and services never ask for your password or
+                  one-time code by text or email.
+                </p>
+              </div>
+              <button type="button" class="btn-ghost card-toggle" aria-expanded="false" aria-controls="more-protect">
+                Learn more
+              </button>
+            </article>
+            <article class="glass tip-card">
+              <div class="tip-top">
+                <span class="tip-tag">Response</span>
+                <span class="tip-badge"><svg class="ico"><use href="#i-alert" /></svg></span>
+              </div>
+              <svg class="tip-art" viewBox="0 0 160 120" aria-hidden="true">
+                <polygon points="80,30 140,60 80,90 20,60" fill="rgba(190,215,255,0.45)" stroke="rgba(255,255,255,0.4)" />
+                <polygon points="20,60 80,90 80,100 20,70" fill="rgba(120,150,210,0.5)" />
+                <polygon points="80,90 140,60 140,70 80,100" fill="rgba(80,110,180,0.5)" />
+                <g fill="rgba(210,230,255,0.55)" stroke="rgba(255,255,255,0.55)">
+                  <ellipse cx="62" cy="58" rx="16" ry="8" />
+                  <ellipse cx="98" cy="56" rx="14" ry="7" />
+                  <ellipse cx="80" cy="72" rx="20" ry="9" />
+                </g>
+                <g fill="none" stroke="#fff" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round">
+                  <path d="M54 56q6-4 12-2M72 70q8-4 16 0" />
+                </g>
+              </svg>
+              <div class="tip-body">
+                <h4>Report Suspicious Activity</h4>
+                <p>Report phishing attempts or unusual messages to help prevent further threats.</p>
+                <p class="card-more" id="more-report" hidden>
+                  Forward scams to your provider or local cyber-crime unit,
+                  then delete the message.
+                </p>
+              </div>
+              <button type="button" class="btn-ghost card-toggle" aria-expanded="false" aria-controls="more-report">
+                Learn more
+              </button>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <div id="scanView" class="hidden">
+        <section class="team scan-page">
+          <div class="section-head">
+            <span class="eyebrow">How it works</span>
+            <h2>Meet Your Security Guides</h2>
+          </div>
+          <div class="team-grid">
+            <article class="persona glass">
+              <div class="avatar-wrap">
+                <svg class="avatar-art" viewBox="0 0 120 120" aria-hidden="true"><use href="#avatar-a" /></svg>
+              </div>
+              <div>
+                <h4>Receive</h4>
+                <p>Share a message to ThreatGuard, or forward your SMS and email to it, and it is checked on arrival.</p>
+              </div>
+            </article>
+            <article class="persona glass">
+              <div class="avatar-wrap">
+                <svg class="avatar-art" viewBox="0 0 120 120" aria-hidden="true"><use href="#avatar-b" /></svg>
+              </div>
+              <div>
+                <h4>Detect</h4>
+                <p>Urgent wording, login requests and risky links are highlighted with a clear score.</p>
+              </div>
+            </article>
+            <article class="persona glass">
+              <div class="avatar-wrap">
+                <svg class="avatar-art" viewBox="0 0 120 120" aria-hidden="true"><use href="#avatar-c" /></svg>
+              </div>
+              <div>
+                <h4>Stay safe</h4>
+                <p>Dangerous links are disabled and you get simple advice on what to do next.</p>
+              </div>
+            </article>
+            <form class="white-card scan-card" id="scan" novalidate>
+              <h3>Scan a message</h3>
+              <p class="scan-sub">Paste any suspicious text to check it right now.</p>
+              <div class="scan-fields">
+                <label class="field">
+                  <svg class="ico"><use href="#i-user" /></svg>
+                  <input type="text" id="scanSender" placeholder="Sender (optional)" aria-label="Sender" autocomplete="off" />
+                </label>
+                <label class="field area">
+                  <textarea id="scanText" rows="4" placeholder="Paste the message here" aria-label="Message text" required></textarea>
+                </label>
+              </div>
+              <div class="scan-actions">
+                <button type="button" class="btn-dark" id="pasteBtn">Paste &amp; scan</button>
+                <button type="submit" class="btn-dark">Scan now</button>
+                <button type="button" class="chip" data-sample="phish">
+                  <svg class="ico"><use href="#i-alert" /></svg>Phishing sample
+                </button>
+                <button type="button" class="chip" data-sample="safe">
+                  <svg class="ico"><use href="#i-check-circle" /></svg>Safe sample
+                </button>
+                <button type="reset" class="chip">Clear</button>
+              </div>
+              <div class="scan-result hidden" id="scanResult" aria-live="polite"></div>
+            </form>
+          </div>
+        </section>
+      </div>
+
+      <div id="inboxView" class="hidden">
+        <section class="inbox-section">
+          <div class="section-head">
+            <span class="eyebrow">Inbox</span>
+            <h2>Incoming Messages</h2>
+            <p class="section-sub" id="inboxSub">
+              ThreatGuard needs your permission before it can scan messages
+              sent to it.
+            </p>
+          </div>
+
+          <div class="glass permission-card" id="permissionCard">
+            <div class="perm-icon"><svg class="ico"><use href="#i-key" /></svg></div>
+            <h3>Allow ThreatGuard to receive your messages?</h3>
+            <p class="perm-lead">
+              Once you allow this, every message you share or forward to
+              ThreatGuard is scanned and saved to your database.
+            </p>
+            <ul class="perm-list">
+              <li>
+                <svg class="ico ok"><use href="#i-check-circle" /></svg>
+                Scans shared or forwarded SMS and email for phishing phrases and risky links
+              </li>
+              <li>
+                <svg class="ico ok"><use href="#i-check-circle" /></svg>
+                Blocks or flags dangerous messages and explains why
+              </li>
+              <li>
+                <svg class="ico no"><use href="#i-ban" /></svg>
+                Never replies to, sends, or deletes the messages on your phone
+              </li>
+              <li>
+                <svg class="ico info"><use href="#i-undo" /></svg>
+                You can turn this off at any time
+              </li>
+            </ul>
+            <p class="perm-denied hidden" id="permDenied">
+              Access was not granted, so ThreatGuard will not accept messages.
+              You can change your mind at any time.
+            </p>
+            <div class="perm-actions">
+              <button type="button" id="allow-btn" class="btn-white">Allow access</button>
+              <button type="button" id="deny-btn" class="btn-ghost">Not now</button>
+            </div>
+          </div>
+
+          <div class="demo-grid hidden" id="inboxGrid">
+            <div class="glass inbox-card">
+              <div class="inbox-top">
+                <div>
+                  <h3>Inbox</h3>
+                  <span class="inbox-count" id="inboxCount">0 messages</span>
+                </div>
+                <span class="access-status"><i class="dot"></i>On · scanning</span>
+              </div>
+
+              <div class="inbox-actions">
+                <button type="button" id="receive-btn" class="btn-white">Simulate message</button>
+                <button type="button" id="clear-btn" class="btn-ghost">Clear inbox</button>
+                <button type="button" id="revoke-btn" class="btn-ghost">Turn off</button>
+              </div>
+
+              <div class="inbox-list" id="inboxList" aria-live="polite"></div>
+            </div>
+
+            <div class="glass detail-card" id="detail" aria-live="polite"></div>
+          </div>
+        </section>
+      </div>
+
+      <div id="dashboardView" class="dashboard hidden">
+        <div class="section-head left">
+          <span class="eyebrow">Analytics</span>
+          <h2>Security Analytics Dashboard</h2>
+          <p class="section-sub">
+            Overview of threat analysis activity and system metrics.
+          </p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="glass stat-card">
+            <span class="stat-number" id="totalScans">0</span>
+            <span class="stat-label">Total Messages Scanned</span>
+          </div>
+          <div class="glass stat-card">
+            <span class="stat-number threat" id="highRiskScans">0</span>
+            <span class="stat-label">High-Risk Threats Flagged</span>
+          </div>
+          <div class="glass stat-card">
+            <span class="stat-number safe" id="cleanScans">0</span>
+            <span class="stat-label">Clean Messages Verified</span>
+          </div>
+        </div>
+
+        <div class="white-card">
+          <h3>Recent Scanned Activity Log</h3>
+          <div class="table-container">
+            <table class="log-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Sender</th>
+                  <th>Message excerpt</th>
+                  <th>Threat type</th>
+                  <th>Risk score</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="logTableBody">
+                <tr id="emptyRow">
+                  <td colspan="6" class="empty">
+                    No messages scanned yet. Share a message to ThreatGuard, or use
+                    the scanner on the Scan page.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 ThreatGuard | AI-Driven Threat Detection</p>
+    </footer>
+
+
+    <dialog class="install-dialog" id="installDialog" aria-labelledby="installTitle">
+      <h3 id="installTitle">Install ThreatGuard on your phone</h3>
+      <p class="install-lead" id="installLead">
+        Your browser did not offer a one-tap install, so use the steps below.
+      </p>
+      <div class="install-steps">
+        <h4>Android (Chrome)</h4>
+        <ol>
+          <li>Open this page in <b>Chrome</b>, not inside Messenger, Facebook or another app.</li>
+          <li>Tap the <b>⋮</b> menu at the top right.</li>
+          <li>Tap <b>Install app</b> or <b>Add to Home screen</b>, then confirm.</li>
+        </ol>
+        <h4>iPhone (Safari)</h4>
+        <ol>
+          <li>Open this page in <b>Safari</b>.</li>
+          <li>Tap the <b>Share</b> button, then <b>Add to Home Screen</b>.</li>
+        </ol>
+        <p class="install-note">
+          After installing on Android, <b>Share → ThreatGuard</b> appears when
+          you long-press a message in your SMS or chat app.
+        </p>
+      </div>
+      <form method="dialog">
+        <button class="btn-white" autofocus>Got it</button>
+      </form>
+    </dialog>
+
+    <script src="/script.js"></script>
+  </body>
+</html>
